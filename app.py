@@ -55,7 +55,7 @@ def Message():
             titles = re.sub('&nbsp;|\t|\r|\n|\xa0', '', data[1])
 
             if len(titles.split('학산도서관 ')) == 2:
-                book += 'title : '+titles.split('학산도서관 ')[0] + titles.split('학산도서관')[1] + ' ' + data[4] + '\n' + data[2]+' '+data[3]
+                book += '서명 : ' + titles.split('학산도서관 ')[0] + '\n' + '저자 : ' + data[2] + ' / 출판사 : ' + data[3]+ ' / ' + titles.split('학산도서관 ')[1] + '\n청구기호 : ' + data[4] + '\n'
 
         dataSend = {
             "message": {

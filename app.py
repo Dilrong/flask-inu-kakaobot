@@ -69,7 +69,7 @@ def Message():
 def internalError():
     data_send = {
         "message": {
-            "text": "no search"
+            "text": "검색결과가 없습니다."
         }
     }
     return jsonify(data_send)

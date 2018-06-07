@@ -18,7 +18,7 @@ def hello():
 def Keyboard():
     dataSend = {
         "type": "buttons",
-        "buttons": ["도서검색"]
+        "buttons": ["도서검색", "test1"]
     }
 
     return jsonify(dataSend)
@@ -64,7 +64,7 @@ def Message():
     dataReceive = request.get_json()
     content = dataReceive['content']
     
-    if content == u"":
+    if content == u"test1":
         dataSend = {
             "message": {
                 "text": book
@@ -74,5 +74,5 @@ def Message():
 
 
 if __name__ == "__main__":
-    # app.run(host='0.0.0.0', port=5000, debug=True)
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
+    #app.run(debug=True)

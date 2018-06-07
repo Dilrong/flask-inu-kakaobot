@@ -1,4 +1,5 @@
 import os
+import re
 from flask import Flask, request, jsonify
 from urllib.request import urlopen
 from urllib.parse import quote
@@ -55,6 +56,8 @@ def getBook(string):
 					'year': data[5],
 					'state': titles.split('학산도서관 ')[1]
 				}
+				return data_list
+				
 def Message():
 	dataReceive = request.get_json()
 	content = dataReceive['content']

@@ -32,9 +32,7 @@ def Message():
     content = dataReceive['content']
     
     if content == u"test1":
-		keyboard = {
-			"type" : "text"
-		}
+		keyboard = { "type" : "text" }
 		jsonify(keyboard)
 		dataReceive = request.get_json()
     	content = dataReceive['content']

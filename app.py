@@ -18,15 +18,15 @@ def hello():
 def Keyboard():
     dataSend = {
         "type": "buttons",
-        "buttons": ["test1"]
+        "buttons": ["도서검색"]
     }
 
     return jsonify(dataSend)
 
 
 @app.route('/message', methods=['POST'])
-
-def getBook():
+def Message():
+    book=''
     keyword = quote("파이썬")
     try:
         context = ssl._create_unverified_context()
@@ -35,7 +35,7 @@ def getBook():
         bsObj = BeautifulSoup(html, "html.parser")
     except AttributeError as e:
         return None
-
+    
     result = []
     table = bsObj.find("table", {"id": "briefTable"})
     table_body = table.find("tbody")
@@ -59,14 +59,11 @@ def getBook():
             #         'year': data[5],
             #         'state': titles.split('학산도서관 ')[1]
             #     }
-            return str(data)
-
-
-def Message():
+            book = str(data)
+    
     dataReceive = request.get_json()
     content = dataReceive['content']
-    book = getBook()
-
+    
     if content == u"test1":
         dataSend = {
             "message": {

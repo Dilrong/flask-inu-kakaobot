@@ -55,13 +55,22 @@ def Message():
             titles = re.sub('&nbsp;|\t|\r|\n|\xa0', '', data[1])
 
             if len(titles.split('학산도서관 ')) == 2:
-                book += '서명 : ' + titles.split('학산도서관 ')[0] + '\n' + '저자 : ' + data[2] + ' / 출판사 : ' + data[3]+ ' / ' + titles.split('학산도서관 ')[1] + '\n청구기호 : ' + data[4] + '\n'
+                book +=  titles.split('학산도서관 ')[0] + '\n' + '저자 : ' + data[2] + ' / 출판사 : ' + data[3]+ ' / ' + titles.split('학산도서관 ')[1] + '\n청구기호 : ' + data[4] + '\n\n'
 
         dataSend = {
             "message": {
                 "text": book
             }
         }
+    return jsonify(dataSend)
+
+@app.errorhandler(500)
+def internalError(error):
+	dataSend = {
+		"message": {
+			"text" : "no search"
+		}
+	}
     return jsonify(dataSend)
 
 if __name__ == "__main__":

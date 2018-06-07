@@ -42,6 +42,8 @@ def Message():
 
     result = []
     table = bsObj.find("table", {"id": "briefTable"})
+    if table is None:
+        return internalError()
     table_body = table.find("tbody")
     rows = table_body.findAll("tr")
 
@@ -64,8 +66,7 @@ def Message():
         }
     return jsonify(data_send)
 
-@app.errorhandler(500)
-def internalError(error):
+def internalError():
     data_send = {
         "message": {
             "text": "no search"

@@ -1,5 +1,6 @@
 import os
 import re
+import ssl
 from flask import Flask, request, jsonify
 from urllib.request import urlopen
 from urllib.parse import quote
@@ -24,7 +25,8 @@ def Keyboard():
 def getResult(keyword):
 	keyword = quote(keyword)
 	try:
-		html = urlopen("https://lib.inu.ac.kr/search/tot/result?st=KWRD&si=TOTAL&q=" + keyword + "&briefType=T")
+		context = ssl._create_unverified_context()
+		html = urlopen("https://lib.inu.ac.kr/search/tot/result?st=KWRD&si=TOTAL&q=" + keyword + "&briefType=T", context=context)
 		bsObj = BeautifulSoup(html, "html.parser")
 	except ArithmeticError as e:
 		return None

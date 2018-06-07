@@ -26,29 +26,29 @@ def Keyboard():
 
 @app.route('/message', methods=['POST'])
 def Message():
-	userinput=''
-    
+    userinput = ''
+
+
     dataReceive = request.get_json()
     content = dataReceive['content']
-    
-    if content == u"test1":
-		keyboard = { "type" : "text" }
-		jsonify(keyboard)
-		dataReceive = request.get_json()
-    	content = dataReceive['content']
-        
-		userinput = content;
 
-	
+    if content == u"test1":
+        keyboard = {"type": "text"}
+        jsonify(keyboard)
+        dataReceive = request.get_json()
+        content = dataReceive['content']
+
+    userinput = content;
+
     keyword = quote(userinput)
     try:
         context = ssl._create_unverified_context()
         html = urlopen("https://lib.inu.ac.kr/search/tot/result?st=KWRD&si=TOTAL&q=" + keyword + "&briefType=T",
-                       context=context)
+                   context=context)
         bsObj = BeautifulSoup(html, "html.parser")
     except AttributeError as e:
         return None
-    
+
     result = []
     table = bsObj.find("table", {"id": "briefTable"})
     table_body = table.find("tbody")
@@ -63,15 +63,15 @@ def Message():
         if len(data) == 6:
             titles = re.sub('&nbsp;|\t|\r|\n|\xa0', '', data[1])
 
-            book = str(data)
+            if len(titles.split('학산도서관 ')) == 2:
+                book = titles.split('학산도서관 ')[0] + titles.split('학산도서관')[1] + ' ' + data[4] + '\n' + data[2]+' '+data[3] + '\n'
 
-		dataSend = {
+        dataSend = {
             "message": {
                 "text": book
             }
         }
     return jsonify(dataSend)
-
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)

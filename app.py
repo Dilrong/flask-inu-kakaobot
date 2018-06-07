@@ -25,6 +25,7 @@ def Keyboard():
 
 @app.route('/message', methods=['POST'])
 def Message():
+    book = ''
     userinput = 'nodejs'
 
     dataReceive = request.get_json()
@@ -54,7 +55,7 @@ def Message():
             titles = re.sub('&nbsp;|\t|\r|\n|\xa0', '', data[1])
 
             if len(titles.split('학산도서관 ')) == 2:
-                book = titles.split('학산도서관 ')[0] + titles.split('학산도서관')[1] + ' ' + data[4] + '\n' + data[2]+' '+data[3] + '\n'
+                book += 'title : '+titles.split('학산도서관 ')[0] + titles.split('학산도서관')[1] + ' ' + data[4] + '\n' + data[2]+' '+data[3]
 
         dataSend = {
             "message": {

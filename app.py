@@ -16,11 +16,11 @@ def hello():
 
 @app.route("/keyboard")
 def Keyboard():
-    dataSend = {
+    data_send = {
         "type": "text"
     }
 
-    return jsonify(dataSend)
+    return jsonify(data_send)
 
 
 @app.route('/message', methods=['POST'])
@@ -57,21 +57,21 @@ def Message():
             if len(titles.split('학산도서관 ')) == 2:
                 book +=  titles.split('학산도서관 ')[0] + '\n' + '저자 : ' + data[2] + ' / 출판사 : ' + data[3]+ ' / ' + titles.split('학산도서관 ')[1] + '\n청구기호 : ' + data[4] + '\n\n'
 
-        dataSend = {
+        data_send = {
             "message": {
                 "text": book
             }
         }
-    return jsonify(dataSend)
+    return jsonify(data_send)
 
 @app.errorhandler(500)
 def internalError(error):
-	dataSend = {
-		"message": {
-			"text" : "no search"
-		}
-	}
-    return jsonify(dataSend)
+    data_send = {
+        "message": {
+            "text": "no search"
+        }
+    }
+    return jsonify(data_send)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)

@@ -17,8 +17,7 @@ def hello():
 @app.route("/keyboard")
 def Keyboard():
     dataSend = {
-        "type": "buttons",
-        "buttons": ["도서검색", "test1"]
+        "type": "text"
     }
 
     return jsonify(dataSend)
@@ -26,19 +25,10 @@ def Keyboard():
 
 @app.route('/message', methods=['POST'])
 def Message():
-    userinput = ''
-
+    userinput = 'nodejs'
 
     dataReceive = request.get_json()
-    content = dataReceive['content']
-
-    if content == u"test1":
-        keyboard = {"type": "text"}
-        jsonify(keyboard)
-        dataReceive = request.get_json()
-        content = dataReceive['content']
-
-    userinput = content;
+    userinput = dataReceive['content']
 
     keyword = quote(userinput)
     try:

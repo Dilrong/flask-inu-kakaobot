@@ -26,8 +26,23 @@ def Keyboard():
 
 @app.route('/message', methods=['POST'])
 def Message():
-    book=''
-    keyword = quote("파이썬")
+	userinput=''
+    
+    dataReceive = request.get_json()
+    content = dataReceive['content']
+    
+    if content == u"test1":
+		keyboard = {
+			"type" : "text"
+		}
+		jsonify(keyboard)
+		dataReceive = request.get_json()
+    	content = dataReceive['content']
+        
+		userinput = content;
+
+	
+    keyword = quote(userinput)
     try:
         context = ssl._create_unverified_context()
         html = urlopen("https://lib.inu.ac.kr/search/tot/result?st=KWRD&si=TOTAL&q=" + keyword + "&briefType=T",
@@ -50,22 +65,9 @@ def Message():
         if len(data) == 6:
             titles = re.sub('&nbsp;|\t|\r|\n|\xa0', '', data[1])
 
-            # if len(titles.split('학산도서관 ')) == 2:
-            #     data_list = {
-            #         'title': titles.splite('학산도서관 ')[0],
-            #         'author': data[2],
-            #         'publisher': data[3],
-            #         'place': data[4],
-            #         'year': data[5],
-            #         'state': titles.split('학산도서관 ')[1]
-            #     }
             book = str(data)
-    
-    dataReceive = request.get_json()
-    content = dataReceive['content']
-    
-    if content == u"test1":
-        dataSend = {
+
+		dataSend = {
             "message": {
                 "text": book
             }
@@ -75,4 +77,3 @@ def Message():
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000, debug=True)
-    #app.run(debug=True)

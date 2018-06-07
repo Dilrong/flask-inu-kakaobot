@@ -64,7 +64,7 @@ def Message():
     dataReceive = request.get_json()
     content = dataReceive['content']
     
-    if content == u"test1":
+    if content == u"":
         dataSend = {
             "message": {
                 "text": book
